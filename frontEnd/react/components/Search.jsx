@@ -1,6 +1,7 @@
 import React from 'react';
 // import $ from 'jquery';
 import Axios from 'axios';
+import RepoList from './RepoList'
 
 class Search extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Search extends React.Component {
       data: this.state.term
     })
     .then((response)=>{
-      console.log(response)
+  
     })
     .catch((err)=>{
       console.log(err)
@@ -32,11 +33,13 @@ class Search extends React.Component {
   }
 
   render() {
-    return (<div>
+    return (
+    <div>
       <h4>Add more repos!</h4>
       Enter a github username: <input value={this.state.terms} onChange={this.onChange}/>
       <button onClick={this.search}> Add Repos </button>
-    </div>)
+    </div>
+    )
   }
 }
 
