@@ -15,7 +15,6 @@ console.log('Searching for ',username)
       'Authorization': `token ${config.TOKEN}`
     }
   }
-
   Axios.get('https://api.github.com/users/'+username+'/repos')
   .then((response)=>{
     callback(response.data)
@@ -25,5 +24,28 @@ console.log('Searching for ',username)
     callback("Error at github.js")
   })
 }
+
+let sortData = (data,cb) => {
+  data.map((individualRepo,index)=>{
+    var results = {};
+    results.id = individualRepo.id;
+    results.creation = individualRepo.created_at;
+    results.handle = individualRepo.owner.login;
+    results.description = individualRepo.description;
+    results.url = individualRepo.html_url;
+    results.starred = individualRepo.owner.starred_url;
+    results.starGazer = individualRepo.stargazers_count;
+    results.followers = individualRepo.owner.followers_url;
+    results.organizations = individualRepo.owner.organizations_url;
+    cb(null,results);
+  })
+}
+
+
+
+
 // getReposByUsername('PolancichBen');
-module.exports.getReposByUsername = getReposByUsername;
+module.exports = {
+  getReposByUsername,
+  sortData
+};
